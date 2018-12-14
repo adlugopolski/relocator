@@ -1,0 +1,12 @@
+Rails:
+  Enabled: true
+
+AllCops:
+  TargetRubyVersion: 2.5
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  ConsistentQuotesInMultiline: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
