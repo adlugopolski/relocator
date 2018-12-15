@@ -1,0 +1,2 @@
+module Relocator::Support
+end
