@@ -21,10 +21,20 @@ RSpec.describe Relocator::Path::Formatter do
     end
 
     context "with short path" do
-      let(:filename) { "lib/subdomain.rb" }
       let(:output) { "Subdomain::AdminDomain" }
+      let(:filename) { "lib/subdomain.rb" }
 
       it "outputs new location for name formatter" do
+        expect(service.call)
+          .to eq "lib/subdomain/admin_domain.rb"
+      end
+    end
+
+    context "with complex short path" do
+      let(:output) { "Subdomain::Admin::Domain" }
+      let(:filename) { "lib/subdomain/admin_domain.rb" }
+
+      xit "outputs new location for name formatter" do
         expect(service.call)
           .to eq "lib/subdomain/admin_domain.rb"
       end

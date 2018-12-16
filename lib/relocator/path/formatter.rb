@@ -21,7 +21,7 @@ class Relocator::Path::Formatter
   attr_accessor :output, :filename
 
   def parts
-    filename.split("/", 3)[0..-2]
+    filename.split("/", 3)[0..-2][0..1]
   end
 
   def output_underscore
