@@ -1,0 +1,2 @@
+class Other::Data
+end

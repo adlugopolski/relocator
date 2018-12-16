@@ -1,0 +1,2 @@
+class Someclass::Data
+end
