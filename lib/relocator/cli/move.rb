@@ -13,8 +13,8 @@ class Relocator::CLI::Move
   def call
     return unless Relocator::CLI::Success.call(files)
 
-    STDOUT.puts "mkdir -p %s".format(code_dest)
-    STDOUT.puts "mkdir -p %s".format(spec_dest)
+    STDOUT.puts "mkdir -p %s".format(code_dest_dir)
+    STDOUT.puts "mkdir -p %s".format(spec_dest_dir)
     STDOUT.puts "mv %s %s".format(code_source, code_dest)
     STDOUT.puts "mv %s %s".format(spec_source, spec_dest)
     STDOUT.puts replace_command
@@ -49,7 +49,15 @@ class Relocator::CLI::Move
     @_code_dest ||= Relocator::Path::Formatter.call(dest_class_name, code_source)
   end
 
+  def code_dest_dir
+    File.dirname(code_dest)
+  end
+
   def spec_dest
     @_spec_dest ||= Relocator::Path::Spec.call(code_dest)
+  end
+
+  def spec_dest_dir
+    File.dirname(spec_dest)
   end
 end
