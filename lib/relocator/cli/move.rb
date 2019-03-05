@@ -13,6 +13,8 @@ class Relocator::CLI::Move
   def call
     return unless Relocator::CLI::Success.call(files)
 
+    STDOUT.puts "mkdir -p %s".format(code_dest)
+    STDOUT.puts "mkdir -p %s".format(spec_dest)
     STDOUT.puts "mv %s %s".format(code_source, code_dest)
     STDOUT.puts "mv %s %s".format(spec_source, spec_dest)
     STDOUT.puts replace_command

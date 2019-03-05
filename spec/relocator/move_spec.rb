@@ -34,7 +34,7 @@ RSpec.describe Relocator::CLI::Move do
       it "outputs commands" do
         expect(STDOUT)
           .to have_received(:puts)
-          .exactly(3)
+          .exactly(5)
           .times
       end
 
