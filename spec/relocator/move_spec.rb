@@ -3,7 +3,7 @@ RSpec.describe Relocator::CLI::Move do
     let(:service) { described_class.new(src, dst) }
     let(:dst) { "source" }
     let(:src) { "destination" }
-    let(:files) { %w[filename] }
+    let(:files) { %w[dir1/file1 dir2/file2] }
     let(:success) { false }
 
     before do
@@ -12,9 +12,9 @@ RSpec.describe Relocator::CLI::Move do
       allow(Relocator::CLI::Files)
         .to receive_messages(call: files)
       allow(Relocator::Path::Formatter)
-        .to receive_messages(call: "dest")
+        .to receive_messages(call: "dest/file1.rb")
       allow(Relocator::Path::Spec)
-        .to receive_messages(call: "spec")
+        .to receive_messages(call: "spec/file1_spec.rb")
       allow(STDOUT).to receive(:puts)
 
       service.call
@@ -34,8 +34,13 @@ RSpec.describe Relocator::CLI::Move do
       it "outputs commands" do
         expect(STDOUT)
           .to have_received(:puts)
-          .exactly(5)
-          .times
+          .with("mkdir -p dest")
+          .with("mkdir -p spec")
+          .with("mv dir1/file1 dest/file1.rb")
+          .with("mv spec/file1_spec.rb spec/file1_spec.rb")
+          .with(
+            "gsed -i 's/destination/source/g' dest/file1.rb spec/file1_spec.rb"
+          )
       end
 
       it "passed files to success object" do
@@ -47,8 +52,8 @@ RSpec.describe Relocator::CLI::Move do
       it "uses spec to determine spec names" do
         expect(Relocator::Path::Spec)
           .to have_received(:call)
-          .with("filename")
-          .with("dest")
+          .with("dest/file1.rb")
+          .with("dir1/file1")
       end
     end
   end
