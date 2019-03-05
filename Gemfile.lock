@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relocator (0.2.1)
+    relocator (0.2.3)
 
 GEM
   remote: https://rubygems.org/
